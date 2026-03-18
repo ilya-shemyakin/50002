@@ -1,6 +1,7 @@
 #include "CompositeShape.h"
 #include <algorithm>
 #include <iomanip>
+#include <limits>
 
 void CompositeShape::addShape(std::unique_ptr<Shape> shape) {
     if (!shape) {

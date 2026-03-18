@@ -44,7 +44,6 @@ void Rectangle::print() const {
     std::cout << ']';
 }
 void Rectangle::printRaw() const {
-    Point c = getCenter();
     std::cout << "RECTANGLE, (" << std::fixed << std::setprecision(2)
         << getCenter().x_ << ", " << getCenter().y_ << "), " << getArea();
 }

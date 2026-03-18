@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include <iomanip>
-#include "compositeshape.h"
+#include "Compositeshape.h"
 int main() {
     std::setlocale(LC_ALL, "Russian");
     std::vector<std::unique_ptr<Shape>> shapes;
