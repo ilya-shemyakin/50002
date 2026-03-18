@@ -39,7 +39,6 @@ void Square::print() const {
     std::cout << ']';
 }
 void Square::printRaw() const {
-    Point c = getCenter();
     std::cout << "SQUARE, (" << std::fixed << std::setprecision(2)
         << getCenter().x_ << ", " << getCenter().y_ << "), " << getArea();
 }
