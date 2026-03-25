@@ -25,7 +25,7 @@ void Rectangle::move(double deltaX, double deltaY)
 
 void Rectangle::scale(double k)
 {
-    if (k <= 0) 
+    if (k <= 0)
     {
         throw std::invalid_argument("Scale k must be positive");
     }
