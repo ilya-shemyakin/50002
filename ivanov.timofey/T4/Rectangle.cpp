@@ -30,7 +30,7 @@ void Rectangle::move(double x, double y)
 
 void Rectangle::scale(double k)
 {
-    if (k <= 0) 
+    if (k <= 0)
     {
         throw std::invalid_argument("Scale factor must be positive");
     }

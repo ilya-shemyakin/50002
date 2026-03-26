@@ -58,7 +58,7 @@ void Square::getBoundingBox(Point& bottomLeft, Point& topRight) const
 void Square::print() const
 {
     Point center = getCenter();
-    std::cout << "[" << getName() 
+    std::cout << "[" << getName()
         << ", (" << center.x_ << ", " << center.y_ << "), "
         << getArea() << "]";
 }

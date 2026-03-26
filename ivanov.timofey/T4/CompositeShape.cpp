@@ -7,7 +7,7 @@
 
 void CompositeShape::addShape(std::unique_ptr<Shape> shape)
 {
-    if (!shape) 
+    if (!shape)
     {
         throw std::invalid_argument("Cannot add null shape to composite");
     }
@@ -17,7 +17,7 @@ void CompositeShape::addShape(std::unique_ptr<Shape> shape)
 double CompositeShape::getArea() const
 {
     double totalArea = 0.0;
-    for (const auto& shape : shapes_) 
+    for (const auto& shape : shapes_)
     {
         totalArea += shape->getArea();
     }
@@ -26,7 +26,8 @@ double CompositeShape::getArea() const
 
 void CompositeShape::getBoundingBox(Point& bottomLeft, Point& topRight) const
 {
-    if (shapes_.empty()) {
+    if (shapes_.empty())
+    {
         bottomLeft = Point(0, 0);
         topRight = Point(0, 0);
         return;
@@ -39,7 +40,8 @@ void CompositeShape::getBoundingBox(Point& bottomLeft, Point& topRight) const
 
     Point shapeBottomLeft, shapeTopRight;
 
-    for (const auto& shape : shapes_) {
+    for (const auto& shape : shapes_)
+    {
         shape->getBoundingBox(shapeBottomLeft, shapeTopRight);
         minX = std::min(minX, shapeBottomLeft.x_);
         minY = std::min(minY, shapeBottomLeft.y_);
@@ -53,7 +55,7 @@ void CompositeShape::getBoundingBox(Point& bottomLeft, Point& topRight) const
 
 Point CompositeShape::getCenter() const
 {
-    if (shapes_.empty()) 
+    if (shapes_.empty())
     {
         return Point(0, 0);
     }
@@ -67,7 +69,7 @@ Point CompositeShape::getCenter() const
 
 void CompositeShape::move(double x, double y)
 {
-    for (auto& shape : shapes_) 
+    for (auto& shape : shapes_)
     {
         shape->move(x, y);
     }
@@ -113,21 +115,20 @@ void CompositeShape::print() const
 {
     Point center = getCenter();
     std::cout << std::fixed << std::setprecision(2);
-    std::cout << "[" << getName() 
+    std::cout << "[" << getName()
         << ", (" << center.x_ << ", " << center.y_ << "), "
         << getArea() << ":" << std::endl;
 
-    for (size_t i = 0; i < shapes_.size(); ++i) 
+    for (size_t i = 0; i < shapes_.size(); ++i)
     {
         std::cout << "  ";
         shapes_[i]->print();
-        if (i < shapes_.size() - 1) 
+        if (i < shapes_.size() - 1)
         {
             std::cout << ",";
         }
         std::cout << std::endl;
     }
-
     std::cout << "]" << std::endl;
 }
 
@@ -138,7 +139,7 @@ size_t CompositeShape::getShapeCount() const
 
 const Shape* CompositeShape::getShape(size_t index) const
 {
-    if (index >= shapes_.size()) 
+    if (index >= shapes_.size())
     {
         throw std::out_of_range("Index out of range");
     }
