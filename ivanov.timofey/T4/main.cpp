@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 #include <memory>
 #include <iomanip>
-#include "rectangle.h"
-#include "square.h"
+#include "Rectangle.h"
+#include "Square.h"
 #include "CompositeShape.h"
 
 void testRectangle()

@@ -1,8 +1,8 @@
 #ifndef COMPOSITE_SHAPE_H
 #define COMPOSITE_SHAPE_H
 
-#include "shape.h"
-#include "point.h"
+#include "Shape.h"
+#include "Point.h"
 #include <memory>
 #include <vector>
 #include <string>
