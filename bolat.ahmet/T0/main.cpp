@@ -1,6 +1,7 @@
-#include <iostream>
+#include<iostream>
 
 int main() {
-    std::cout << "bolat.ahmet" << '\n';
+    std::cout << "bolat.ahmet" << std::endl;
     return 0;
 }
+
