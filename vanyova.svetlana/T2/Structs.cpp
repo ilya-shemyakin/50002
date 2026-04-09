@@ -111,7 +111,6 @@ namespace structs {
             in.setstate(std::ios::failbit);
             return in;
         }
-        double sign = (BeforPoint < 0) ? -1.0 : 1.0;
         double mantissa = std::abs(BeforPoint) + (after / std::pow(10.0, digitCount));
         dest.ref = mantissa * std::pow(10.0, exponent);
         return in;
