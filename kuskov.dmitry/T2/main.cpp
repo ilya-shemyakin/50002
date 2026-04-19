@@ -315,21 +315,6 @@ bool cmp(const DataStruct& f, const DataStruct& ff)
 int main()
 {
     std::vector<DataStruct> v;
-    std::string input = "(:key1 1.0d:key2 100ull:key3 \"What a shame.\":)"
-                        "(:key1 1.0d:key2 110ULL:key3 \"What a rotten way to die.\":)"
-                        "(:key1 1.0D:key2 110ull:key3 \"What a shame.\":)"
-                        "(:key2 42:key3 \"This example is augmented.\":key1 3.14d)"
-                        "(:key3 \"They want to study the way I die.\":key1 500.64d:key2 66:)"
-                        //Wrong inputs
-                        "(:key1 10d:key2 110ull:key3 \"What a shame.\":)"
-                        "(:key1 :key2 110ull:key3 \"What a shame.\":)"
-                        "(:key1 l.d:key2 110ull:key3 \"What a shame.\":)"
-                        "(:key1 .0d:key2 110ull:key3 \"What a shame.\":)"
-                        "(:key1 10.0d:key2 110:key3 \"What a shame.\":)"
-                        "(:key1 10.0d:key2 ull:key3 \"What a shame.\":)"
-                        "(:key1 10.0d:key2 -1110ull:key3 \"What a shame.\":)"
-                        "(:key1 1.0d:key2 100ull:key3 What a shame.:)";
-    std::istringstream iss(input);
     std::copy
     (
         std::istream_iterator<DataStruct>(iss),
