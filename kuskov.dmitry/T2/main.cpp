@@ -317,7 +317,7 @@ int main()
     std::vector<DataStruct> v;
     std::copy
     (
-        std::istream_iterator<DataStruct>(iss),
+        std::istream_iterator<DataStruct>(std::cin),
         std::istream_iterator<DataStruct>(),
         std::back_inserter(v)
     );
