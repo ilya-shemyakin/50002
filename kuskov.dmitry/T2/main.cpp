@@ -268,11 +268,11 @@ std::istream& operator>>(std::istream& in, DataStruct& dest)
             }
             if (in.peek() == ':')
                 in >> sep{':'};
-                if (!in)
-                {
-                    check = false;
-                    break;
-                }
+            if (!in)
+            {
+                check = false;
+                break;
+            }
         }
         if (!k1 || !k2 || !k3)
             in.setstate(std::ios::failbit);
