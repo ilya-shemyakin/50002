@@ -325,7 +325,6 @@ int main()
         cmp
     );
 
-    std::cout << "Data:\n";
     std::copy
     (
         std::begin(v),
