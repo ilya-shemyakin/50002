@@ -210,10 +210,10 @@ std::istream& operator>>(std::istream& in, DataStruct& dest)
     DataStruct input{};
 
     in >> SmthIO{'('};
-    if (!in) 
-    { 
+    if (!in)
+    {
         in.setstate(std::ios_base::failbit);
-        return in; 
+        return in;
     }
     bool k1 = false;
     bool k2 = false;
@@ -221,51 +221,51 @@ std::istream& operator>>(std::istream& in, DataStruct& dest)
     for (std::size_t i{0}; i < 3; ++i)
     {
         in >> DelimiterIO{':'};
-        if (!in) 
-        { 
+        if (!in)
+        {
             in.setstate(std::ios_base::failbit);
-            return in; 
+            return in;
         }
         LabelIO a{};
         in >> a;
-        if (!in) 
-        { 
-            break; 
+        if (!in)
+        {
+            break;
         }
-        if (a.exp == "key1") 
+        if (a.exp == "key1")
         {
             in >> DoubleIO{input.key1};
             k1 = true;
-        } 
-        else if (a.exp == "key2") 
+        }
+        else if (a.exp == "key2")
         {
             in >> UllIO{input.key2};
             k2 = true;
-        } 
-        else if (a.exp == "key3") 
+        }
+        else if (a.exp == "key3")
         {
             in >> StringIO{input.key3};
             k3 = true;
-        } 
-        else 
+        }
+        else
         {
             break;
         }
 
-        if (!in) 
-        { 
-            break; 
+        if (!in)
+        {
+            break;
         }
     }
     in >> DelimiterIO{':'} >> SmthIO{')'};
-    if (!in) 
-    { 
-        in.setstate(std::ios_base::failbit);
-        return in; 
-    }
-    if (k1 && k2 && k3) 
+    if (!in)
     {
-        if (in) 
+        in.setstate(std::ios_base::failbit);
+        return in;
+    }
+    if (k1 && k2 && k3)
+    {
+        if (in)
         {
             dest = std::move(input);
             return in;
