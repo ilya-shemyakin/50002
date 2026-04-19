@@ -205,83 +205,71 @@ std::istream& operator>>(std::istream& in, LabelIO& dest)
 std::istream& operator>>(std::istream& in, DataStruct& dest)
 {
     std::istream::sentry sentry(in);
-    if(!sentry)
-        return in;
-    bool check{true};
-    if (!in)
-        check = false;
+    if (!sentry) return in;
+
     DataStruct input{};
-    {
-        using bracket = SmthIO;
-        using sep = DelimiterIO;
-        using label = LabelIO;
-        using dbl = DoubleIO;
-        using ull = UllIO;
-        using str = StringIO;
-        bool k1 = false;
-        bool k2 = false;
-        bool k3 = false;
-        in >> bracket{'('};
-        if (!in)
-            check = false;
-        in >> sep{':'};
-        if (!in)
-            check = false;
-        while (check && in.peek() != ')')
-        {
-            label a{};
-            in >> a;
-            if (!in)
-            {
-                check = false;
-                break;
-            }
-            if (a.exp == "key1")
-            {
-                in >> dbl{input.key1};
-                k1 = true;
-                if (!in)
-                {
-                    check = false;
-                    break;
-                }
-            }
-            else if (a.exp == "key2")
-            {
-                in >> ull{input.key2};
-                k2 = true;
-                if (!in)
-                {
-                    check = false;
-                    break;
-                }
-            }
-            else if (a.exp == "key3")
-            {
-                in >> str{input.key3};
-                k3 = true;
-                if (!in)
-                {
-                    check = false;
-                    break;
-                }
-            }
-            if (in.peek() == ':')
-                in >> sep{':'};
-            if (!in)
-            {
-                check = false;
-                break;
-            }
-        }
-        if (!k1 || !k2 || !k3)
-            in.setstate(std::ios::failbit);
-        if (check)
-            in >> bracket{')'};
+
+    in >> SmthIO{'('};
+    if (!in) 
+    { 
+        in.setstate(std::ios_base::failbit);
+        return in; 
     }
-    if (in)
+    bool k1 = false;
+    bool k2 = false;
+    bool k3 = false;
+    for (std::size_t i{0}; i < 3; ++i)
     {
-        dest = std::move(input);
+        in >> DelimiterIO{':'};
+        if (!in) 
+        { 
+            in.setstate(std::ios_base::failbit);
+            return in; 
+        }
+        LabelIO a{};
+        in >> a;
+        if (!in) 
+        { 
+            break; 
+        }
+        if (a.exp == "key1") 
+        {
+            in >> DoubleIO{input.key1};
+            k1 = true;
+        } 
+        else if (a.exp == "key2") 
+        {
+            in >> UllIO{input.key2};
+            k2 = true;
+        } 
+        else if (a.exp == "key3") 
+        {
+            in >> StringIO{input.key3};
+            k3 = true;
+        } 
+        else 
+        {
+            break;
+        }
+
+        if (!in) 
+        { 
+            break; 
+        }
+    }
+    in >> DelimiterIO{':'} >> SmthIO{')'};
+    if (!in) 
+    { 
+        in.setstate(std::ios_base::failbit);
+        return in; 
+    }
+    if (k1 && k2 && k3) 
+    {
+        if (in) 
+        {
+            dest = std::move(input);
+            return in;
+        }
     }
     return in;
 }
@@ -315,12 +303,20 @@ bool cmp(const DataStruct& f, const DataStruct& ff)
 int main()
 {
     std::vector<DataStruct> v;
-    std::copy
-    (
-        std::istream_iterator<DataStruct>(std::cin),
-        std::istream_iterator<DataStruct>(),
-        std::back_inserter(v)
-    );
+    while (!std::cin.eof())
+    {
+        std::copy
+        (
+            std::istream_iterator<DataStruct>(std::cin),
+            std::istream_iterator<DataStruct>(),
+            std::back_inserter(v)
+        );
+        if (std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
 
     std::sort
     (
