@@ -283,7 +283,7 @@ std::ostream& operator<<(std::ostream& out, const DataStruct& src)
     out << "(";
     out << ":key1 " << std::fixed << std::setprecision(1) << src.key1 << "d";
     out << ":key2 " << src.key2;
-    out << ":key3 " << src.key3;
+    out << ":key3 " << "\"" << src.key3 << "\"";
     out << ":";
     out << ")";
     return out;
