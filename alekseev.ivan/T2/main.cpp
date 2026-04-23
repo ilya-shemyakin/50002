@@ -9,12 +9,14 @@ struct DataStruct
 {
     unsigned long long key1;
     unsigned long long key2;
+    std::string key2Text;
     std::string key3;
 };
 
 void skipSpaces(const std::string& s, std::size_t& pos)
 {
-    while (pos < s.size() && std::isspace(static_cast<unsigned char>(s[pos])))
+    while (pos < s.size() &&
+        std::isspace(static_cast<unsigned char>(s[pos])))
     {
         ++pos;
     }
@@ -184,6 +186,7 @@ bool parseLine(const std::string& line, DataStruct& data)
                 return false;
             }
 
+            data.key2Text = token.substr(2);
             hasKey2 = true;
         }
         else if (line.compare(pos, 4, "key3") == 0)
@@ -250,22 +253,6 @@ bool parseLine(const std::string& line, DataStruct& data)
     return pos == line.size() && hasKey1 && hasKey2 && hasKey3;
 }
 
-std::string toBinary(unsigned long long value)
-{
-    if (value == 0)
-    {
-        return "0";
-    }
-
-    std::string result;
-    while (value > 0)
-    {
-        result.insert(result.begin(), static_cast<char>('0' + value % 2));
-        value /= 2;
-    }
-    return result;
-}
-
 std::istream& operator>>(std::istream& in, DataStruct& data)
 {
     std::string line;
@@ -287,7 +274,7 @@ std::istream& operator>>(std::istream& in, DataStruct& data)
 std::ostream& operator<<(std::ostream& out, const DataStruct& data)
 {
     out << "(:key1 " << data.key1 << "ull";
-    out << ":key2 0b" << toBinary(data.key2);
+    out << ":key2 0b" << data.key2Text;
     out << ":key3 \"" << data.key3 << "\":)";
     return out;
 }
@@ -307,10 +294,11 @@ bool compareData(const DataStruct& a, const DataStruct& b)
 
 int main()
 {
-    std::vector<DataStruct> data;
+    std::vector< DataStruct > data;
+
     std::copy(
-        std::istream_iterator<DataStruct>(std::cin),
-        std::istream_iterator<DataStruct>(),
+        std::istream_iterator< DataStruct >(std::cin),
+        std::istream_iterator< DataStruct >(),
         std::back_inserter(data)
     );
 
@@ -319,7 +307,7 @@ int main()
     std::copy(
         data.begin(),
         data.end(),
-        std::ostream_iterator<DataStruct>(std::cout, "\n")
+        std::ostream_iterator< DataStruct >(std::cout, "\n")
     );
 
     return 0;
