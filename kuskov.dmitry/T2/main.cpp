@@ -144,8 +144,8 @@ std::istream& operator>>(std::istream& in, UllIO&& dest)
     if(!sentry)
         return in;
     std::string suf;
-    in >> dest.ref;
-    if (!in)
+    long long test;
+    if(!(in >> test) || test < 0)
     {
         in.setstate(std::ios::failbit);
         return in;
@@ -160,6 +160,7 @@ std::istream& operator>>(std::istream& in, UllIO&& dest)
         in.setstate(std::ios::failbit);
         return in;
     }
+    dest.ref = test;
     return in;
 }
 
