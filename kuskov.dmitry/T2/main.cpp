@@ -143,45 +143,22 @@ std::istream& operator>>(std::istream& in, UllIO&& dest)
     std::istream::sentry sentry(in);
     if(!sentry)
         return in;
-    char c;
-    std::string num;
     std::string suf;
-    while (in.get(c))
-    {
-        if (std::isdigit(c))
-            num += c;
-        else if (c == 'u' || c == 'U')
-        {
-            suf += c;
-            suf += in.get();
-            suf += in.get();
-            if (suf == "ull" || suf == "ULL")
-                break;
-            else
-            {
-                in.setstate(std::ios::failbit);
-                return in;
-            }
-        }
-        else
-        {
-            in.putback(c);
-            in.setstate(std::ios::failbit);
-            return in;
-        }
-    }
-    if (num.empty())
+    in >> dest.ref;
+    if (!in)
     {
         in.setstate(std::ios::failbit);
         return in;
     }
-    try
+    char delim{':'};
+    if (std::getline(in, suf, delim))
     {
-        dest.ref = std::stoull(num);
+        in.putback(delim);
     }
-    catch (...)
+    if (suf  != "ull" && suf != "ULL")
     {
         in.setstate(std::ios::failbit);
+        return in;
     }
     return in;
 }
