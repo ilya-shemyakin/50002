@@ -64,3 +64,4 @@ std::string CompositeShape::getName() const {
 const std::vector<std::unique_ptr<Shape>>& CompositeShape::getShapes() const {
     return shapes_;
 }
+
